@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jetbrains Mono";
+    text-decoration: none;
+}
+:root {
+    --light: #fff;
+    --dark: #000;
+}
+body {
+    background-color: #202020;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.mode-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    background-color: var(--light);
+    cursor: pointer;
+    border: 1px solid var(--dark);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--light);
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mode-menu svg {
+    fill: var(--dark);
+}
+.image {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.image img {
+    height: 350px;
+    width: 375px;
+    border-radius: 50%;
+    border-bottom: 3px solid #fff;
+}
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 50px;
+}
+p {
+    color: var(--light);
+}
+.info #greet {
+    font-size: 20px;
+    font-weight: bold;
+}
+.info #name-main {
+    font-size: 50px;
+    font-weight: 900;
+}
+.info #name-info {
+    font-size: 25px;
+    font-weight: 900;
+}
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+.info .mainbtn a svg {
+    fill: var(--light);
+}
+.mainbtn {
+    width: fit-content;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 10px;
+    background: none;
+    color: var(--light);
+    border: 2px solid var(--light);
+    cursor: pointer;
+}
+.mainbtn:hover {
+    color: var(--dark);
+    background-color: var(--light);
+}
+#linkedin a {
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+#linkedin:hover {
+    a {
+        color: var(--dark);
+    }
+    svg {
+        fill: var(--dark);
+    }
+}
+@media (max-width: 850px) {
+    body {
+        height: 100dvh;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 45% 55%;
+    }
+    p {
+        text-align: center;
+    }
+    .info {
+        align-items: center;
+        justify-content: flex-start;
+        margin: 50px 0 0 0;
+    }
+    .image {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+    .image img {
+        height: 250px;
+        width: 275px;
+    }
+    .info #greet {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .info #name-main {
+        font-size: 50px;
+        font-weight: 900;
+    }
+    .info #name-info {
+        font-size: 25px;
+        font-weight: 900;
+    }
+}
