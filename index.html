@@ -1,57 +1,694 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-            integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-        <title>Bibidh Dawadi</title>
-    </head>
-    <body>
-        <button class="mode-menu">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#FFFFF"
-            >
-                <path
-                    d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z"
-                />
-            </svg>
-        </button>
-        <div class="image">
-            <img src="bibidh.jpg" />
-        </div>
-        <div class="info">
-            <p id="greet">Hi, I am</p>
-            <p id="name-main">Bibidh Dawadi</p>
-            <p id="name-info">Computer Science Student</p>
-            <!-- <div class="buttons">
-                <button class="mainbtn" id="linkedin">
-                    <a href="https://www.linkedin.com/" target="_blank"
-                        >Connect
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="15px"
-                            viewBox="0 0 448 512"
-                            width="15px"
-                        >
-                            <path
-                                d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"
-                            /></svg
-                    ></a>
-                </button>
-            </div> -->
-        </div>
-        <script src="script.js"></script>
-    </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bibidh Dawadi — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080c12;
+      --surface: #0d1320;
+      --surface-2: #111928;
+      --border: rgba(99,178,255,0.1);
+      --accent: #63b2ff;
+      --accent-warm: #ffc97e;
+      --text: #e8edf5;
+      --muted: #6b7a96;
+      --glow: rgba(99,178,255,0.15);
+    }
 
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ── GRID BG ── */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99,178,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,178,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── BLOB GLOW ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.25;
+    }
+    .blob-1 { width: 600px; height: 600px; background: #1a4a8a; top: -200px; right: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: #0a3060; bottom: 10%; left: -100px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 60px;
+      background: rgba(8, 12, 18, 0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 60px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 8vw, 100px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 480px;
+      margin: 28px 0 48px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: #080c12;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(99,178,255,0.2);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 32px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* ── SCROLL HINT ── */
+    .scroll-hint {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .scroll-line {
+      width: 60px;
+      height: 1px;
+      background: var(--muted);
+      position: relative;
+      overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      animation: scanline 2s ease-in-out infinite;
+    }
+    @keyframes scanline {
+      to { left: 100%; }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 60px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      position: relative;
+      z-index: 1;
+      height: 1px;
+      background: var(--border);
+      margin: 0 60px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .stat-item {
+      padding: 28px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+    }
+    .stat-item:hover { border-color: var(--accent); }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 300;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── EXPERIENCE CARDS ── */
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .exp-card {
+      background: var(--surface);
+      padding: 40px 36px;
+      transition: background 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .exp-card:hover { background: var(--surface-2); }
+    .exp-card:hover::after { transform: scaleX(1); }
+
+    .exp-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 18px;
+    }
+
+    .exp-card h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .exp-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      padding: 8px 20px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--glow);
+    }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 70px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .contact-wrapper h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+
+    .contact-wrapper p {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 400px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 32px 60px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    .footer-accent {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.8s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.25s; opacity: 0; }
+    .delay-3 { animation-delay: 0.4s; opacity: 0; }
+    .delay-4 { animation-delay: 0.55s; opacity: 0; }
+
+    /* ── AVATAR ── */
+    .avatar-wrapper {
+      position: absolute;
+      right: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .avatar-ring {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .avatar-ring::before {
+      content: '';
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      border: 1px solid rgba(99,178,255,0.06);
+    }
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      border: 1px solid rgba(99,178,255,0.03);
+    }
+    .avatar-inner {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      font-weight: 300;
+      color: var(--accent);
+      overflow: hidden;
+    }
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links { gap: 20px; }
+      .hero { padding: 110px 24px 80px; }
+      .hero h1 { font-size: 52px; }
+      .avatar-wrapper { display: none; }
+      .section { padding: 70px 24px; }
+      .divider { margin: 0 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .contact-wrapper { padding: 48px 32px; }
+      footer { padding: 24px; flex-direction: column; gap: 10px; text-align: center; }
+      .scroll-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Bibidh <span>Dawadi</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home" style="position:relative; z-index:1;">
+  <div class="hero">
+    <div class="hero-tag fade-up">Computer Science Student</div>
+    <h1 class="fade-up delay-1">Bibidh<br><em>Dawadi</em></h1>
+    <p class="hero-sub fade-up delay-2">Passionate about technology, innovation, and building things that matter. Currently pursuing higher education in IT.</p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="#experience" class="btn-primary">View My Work →</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+
+    <div class="avatar-wrapper fade-up delay-4">
+      <div class="avatar-ring">
+        <div class="avatar-inner">BD</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint fade-up delay-4">
+      <div class="scroll-line"></div>
+      SCROLL TO EXPLORE
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="section-label">01 — About</div>
+  <h2 class="section-title">Who I Am</h2>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I completed my <strong>+2 in Computer Science</strong> and have cultivated a deep interest in programming, problem-solving, and the future of technology. I believe great software starts with a curious mind and a commitment to continuous learning.</p>
+      <p>My goal is to pursue higher education in Information Technology and build a career at the intersection of <strong>innovation and impact</strong>. I thrive on challenges that push me to grow.</p>
+      <p>Beyond code, I enjoy participating in academic competitions, leading events, and contributing to community initiatives — because great engineers are also great communicators.</p>
+    </div>
+
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-num">+2</div>
+        <div class="stat-label">Computer Science — Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2026</div>
+        <div class="stat-label">Currently Pursuing Higher Education</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Curiosity & Drive to Learn</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+  <div class="section-label">02 — Experience</div>
+  <h2 class="section-title">What I've Done</h2>
+
+  <div class="exp-grid">
+    <div class="exp-card">
+      <div class="exp-icon">⌨️</div>
+      <h3>School Projects</h3>
+      <p>Developed programming projects in C and built web interfaces using HTML & CSS during my academic studies. Focused on clean logic and practical implementation.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🎤</div>
+      <h3>Events & Leadership</h3>
+      <p>Hosted school events, participated in academic quizzes, and took on leadership roles — developing strong communication and organizational skills along the way.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">🤝</div>
+      <h3>Community Work</h3>
+      <p>Engaged in social work and community activities, understanding that technology is only meaningful when it serves and connects people.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="section-label">03 — Skills</div>
+  <h2 class="section-title">What I Know</h2>
+
+  <div class="skills-grid">
+    <span class="skill-tag">HTML5</span>
+    <span class="skill-tag">CSS3</span>
+    <span class="skill-tag">C Programming</span>
+    <span class="skill-tag">Problem Solving</span>
+    <span class="skill-tag">Communication</span>
+    <span class="skill-tag">Leadership</span>
+    <span class="skill-tag">Event Hosting</span>
+    <span class="skill-tag">Team Collaboration</span>
+    <span class="skill-tag">Web Development</span>
+    <span class="skill-tag">Critical Thinking</span>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="section-label">04 — Contact</div>
+
+  <div class="contact-wrapper">
+    <h2>Let's Connect</h2>
+    <p>Whether it's a project, an opportunity, or just a conversation about tech — I'd love to hear from you.</p>
+    <a href="mailto:bibidh@example.com" class="btn-primary">Send a Message →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Bibidh Dawadi</p>
+  <span class="footer-accent">BUILT WITH CARE</span>
+</footer>
+
+</body>
+</html>
