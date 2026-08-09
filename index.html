@@ -154,6 +154,15 @@
   .venture-card.inovex:hover { border-color:var(--amber); }
 
   .venture-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:28px; }
+  .venture-id { display:flex; align-items:flex-start; gap:16px; }
+  .venture-logo {
+    width:52px; height:52px; border-radius:8px; flex-shrink:0;
+    background:var(--surface-2); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .venture-logo img { width:100%; height:100%; object-fit:contain; padding:8px; }
+  .venture-card.krix .venture-logo { border-color:rgba(91,157,255,0.3); }
+  .venture-card.inovex .venture-logo { border-color:rgba(255,184,100,0.3); }
   .venture-status {
     font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.12em;
     text-transform:uppercase; padding:5px 11px; border-radius:100px; border:1px solid;
@@ -225,7 +234,7 @@
   .footer-accent { font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted-dim); letter-spacing:0.1em; }
 
   /* ── AVATAR ── */
-  .avatar-wrapper { position:absolute; right:64px; top:52%; transform:translateY(-50%); }
+  .avatar-wrapper { position:absolute; right:24px; top:52%; transform:translateY(-50%); }
   .avatar-frame {
     width:400px; height:480px; position:relative; border:1px solid var(--border-strong); border-radius:4px;
     padding:14px;
@@ -319,9 +328,12 @@
   <div class="venture-grid">
     <div class="venture-card krix bracket">
       <div class="venture-top">
-        <div>
-          <div class="venture-role">Founder & Chief Executive</div>
-          <div class="venture-name">Krix Nova</div>
+        <div class="venture-id">
+          <div class="venture-logo"><img src="krixnova-logo.png" alt="Krix Nova logo"></div>
+          <div>
+            <div class="venture-role">Founder & Chief Executive</div>
+            <div class="venture-name">Krix Nova</div>
+          </div>
         </div>
         <span class="venture-status">Active</span>
       </div>
@@ -334,9 +346,12 @@
 
     <div class="venture-card inovex bracket">
       <div class="venture-top">
-        <div>
-          <div class="venture-role">Founding Member</div>
-          <div class="venture-name">Inovex</div>
+        <div class="venture-id">
+          <div class="venture-logo"><img src="inovex-logo.png" alt="Inovex logo"></div>
+          <div>
+            <div class="venture-role">Founding Member</div>
+            <div class="venture-name">Inovex</div>
+          </div>
         </div>
         <span class="venture-status">Founding Team</span>
       </div>
